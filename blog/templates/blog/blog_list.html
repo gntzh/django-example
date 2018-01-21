@@ -3,17 +3,58 @@
 {% block title %}
     My Blog|博客
 {% endblock %}
-
 {% block nav_blog_active %}active{% endblock %}
 
+{% load staticfiles %}
+{% block head_extends %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
 {% block content %}
-    {% for blog in blogs %}
-        <a href="{% url 'blog:blog_detail' blog_pk=blog.pk %}">
-            <h3>{{ blog.title }}</h3>
-        </a>
-        <p>{{ blog.content|truncatechars:30 }}</p>
-        {% empty %}
-            <p>-- 暂无博客！ --</p>
-        {% endfor %}
-        <p>一共有{{ blogs|length }}博客</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9 col-lg-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">博客列表（一共有{{ blogs|length }}博客）</h2>
+                    </div>
+                    <div class="panel-body">
+                        {% for blog in blogs %}
+                        <div class="blog">
+                             <a href="{% url 'blog:blog_detail' blog_pk=blog.pk %}">
+                                <h3>{{ blog.title }}</h3>
+                            </a>
+                        <p>{{ blog.content|truncatechars:120 }}</p><hr>
+                        </div>
+                        {% empty %}
+                        <div class="blog">
+                            <h3>-- 暂无博客！ --</h3>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-3 col-lg-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">博客分类</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="blog-categories">
+                            {% for category in categories %}
+                            <li>
+                                <a href="{% url 'blog:blog_with_category' category.pk %}">{{ category.name }}</a>
+                            </li>
+                            {% empty %}
+                            <p>-- 暂无分类！ --</p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 {% endblock %}

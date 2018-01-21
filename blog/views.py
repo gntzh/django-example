@@ -6,6 +6,7 @@ from django.views import generic
 def blog_list(request):
     context = {}
     context['blogs'] = Blog.objects.all()
+    context['categories'] = Category.objects.all()
     return render(request, 'blog/blog_list.html', context)
 
 

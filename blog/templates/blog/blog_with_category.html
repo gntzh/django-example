@@ -1,6 +1,6 @@
 {% extends 'base.html' %} 
 
-{% block title %} My Blog|分类：{{ category.name }}{% endblock %} 
+{% block title %} My Blog|{{ category.name }}{% endblock %} 
 
 {% block nav_blog_active %}active{% endblock %}
 
@@ -12,7 +12,7 @@
         </a>
         <p>{{ blog.content|truncatechars:30 }}</p>
     {% empty %}
-        <p>-- ! --</p>
+        <p>-- 暂无博客！ --</p>
     {% endfor %}
-    <p>一共有{{ blogs|length }}</p>
+    <p>一共有{{ blogs|length }}篇博客！</p>
 {% endblock %}
