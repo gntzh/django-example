@@ -10,14 +10,6 @@ def blog_list(request):
     return render(request, 'blog/blog_list.html', context)
 
 
-'''
-class Blog_listView(generic.ListView):
-    model = Blog
-    template_name = 'blog/blog_list.html'
-    context_object_name = 'blogs'
-'''
-
-
 def blog_detail(request, blog_pk):
     context = {}
     context['blog'] = get_object_or_404(Blog, pk=blog_pk)
@@ -29,4 +21,5 @@ def blog_with_category(request, category_pk):
     category = get_object_or_404(Category, pk=category_pk)
     context['blogs'] = Blog.objects.filter(category=category)
     context['category'] = category
+    context['categories'] = Category.objects.all()
     return render(request, 'blog/blog_with_category.html', context)
