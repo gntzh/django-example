@@ -24,3 +24,7 @@ ul.blog-info li {
 div.blog-content {
     text-indent: 2em;
 }
+/* 分页居中 */
+div.paginator {
+    text-align: center;
+}

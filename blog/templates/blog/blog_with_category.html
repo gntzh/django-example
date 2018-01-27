@@ -2,6 +2,6 @@
 {% block title %} My Blog|{{ category.name }}{% endblock %} 
 
 {% block blog_list_title %}
-    分类：{{ category.name }}（共有{{ blogs|length }}篇博客）
+    分类：{{ category.name }}（共有{{ page.paginator.count }}篇博客）
     <a href="{% url 'blog:blog_list' %}">查看全部博客</a>
 {% endblock %}

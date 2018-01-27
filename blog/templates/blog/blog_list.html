@@ -35,7 +35,8 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div>
+                {# 分页 #}
+                <div class="paginator">
                         <ul class="pagination">
                             <li>
                                 {% if page.has_previous %}
@@ -46,8 +47,16 @@
                                 <span aria-hidden="true">&laquo;</span>
                                 {% endif %}
                             </li>
-                            {% for page_num in page.paginator.page_range %}
-                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% for page_num in page_range %}
+                                {% if page_num == page.number %}
+                                <li class="active"><span>{{ page_num }}</span></li>
+                                {% else %}
+                                    {% if page_num == '...' %}
+                                    <li><span>{{ page_num }}</span> </li>
+                                    {% else %}
+                                    <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                    {% endif %}
+                                {% endif %}
                             {% endfor %}
                             <li>
                                 {% if page.has_next %}
@@ -57,8 +66,12 @@
                                 {% else %}
                                 <span aria-hidden="true">&raquo;</span>
                                 {% endif %}
-                            <li></li>
+                            </li>
                         </ul>
+                        <form class="form-inline form-group-sm" action="{% url 'blog:blog_list' %}" method="get">
+                            <input type="number" class="form-control input-sm" placeholder="                  {{ page.number }}/{{ page.paginator.num_pages }}"
+                                name="page" value="">
+                        </form>
                 </div>
             </div>
             <div class="hidden-xs col-sm-3 col-lg-2">
