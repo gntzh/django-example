@@ -28,3 +28,7 @@ div.blog-content {
 div.paginator {
     text-align: center;
 }
+/* 翻页 */
+div.blog-others {
+    margin-top: 2em
+}

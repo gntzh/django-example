@@ -35,7 +35,12 @@ def blog_list(request):
 
 
 def blog_detail(request, blog_pk):
+    blog = get_object_or_404(Blog, pk=blog_pk)
     context = {}
+    context['previous_blog'] = Blog.objects.filter(
+        modified_time__gt=blog.modified_time).last()
+    context['next_blog'] = Blog.objects.filter(
+        modified_time__lt=blog.modified_time).first()
     context['blog'] = get_object_or_404(Blog, pk=blog_pk)
     return render(request, 'blog/blog_detail.html', context)
 

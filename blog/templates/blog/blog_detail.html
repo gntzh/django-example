@@ -17,6 +17,34 @@
                 <li>发表日期：{{ blog.created_time|date:"Y-m-d H-n-s" }}</li>
             </ul>
             <div class="blog-content">{{ blog.content }}</div>
+            {# 翻页 #}
+            <div class="blog-others">
+                <ul class="pager">
+                    {% if previous_blog %}
+                    <li class="previous">
+                        <a href="{% url 'blog:blog_detail' previous_blog.pk %}">
+                            <span aria-hidden="true">&larr;</span> 上一篇</a>
+                    </li>
+                    {% else %}
+                    <li class="previous disabled">
+                        <a href=""><span aria-hidden="true">&larr;</span> 上一篇</a>
+                    </li>    
+                    {% endif %}
+                    {% if next_blog %}
+                    <li class="next">
+                        <a href="{% url 'blog:blog_detail' next_blog.pk %}">下一篇 
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="next disabled">
+                        <a href="#">下一篇
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
