@@ -12,4 +12,5 @@ urlpatterns = [
         'category/<int:category_pk>/',
         views.blog_with_category,
         name='blog_with_category'),
+    path('<int:blog_pk>/md', views.blog_detail_md, name='blog_detail_md'),
 ]

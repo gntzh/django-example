@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
+
+{% load staticfiles %}
+
+{% block head_extends %}
+<link rel="stylesheet" href="{% static 'blog/css/pygements-css/colorful.css' %}">
+{% endblock %}
+
+{% block content %}
+    {{ blog.content_md|safe }}
+{% endblock %}

@@ -4,6 +4,8 @@ from django.views import generic
 from django.core.paginator import Paginator
 from django.conf import settings
 
+import markdown
+
 
 def blog_list(request):
     blogs_all = Blog.objects.all()
@@ -74,3 +76,35 @@ def blog_with_category(request, category_pk):
     context['categories'] = Category.objects.all()
     context['page_range'] = page_range
     return render(request, 'blog/blog_with_category.html', context)
+
+'''
+class BlogAllFeed(Feed):
+    title = "Blog Rsss"
+    link = "/blog/"
+    description = "ce shi"
+
+    def items(self):
+        return Blog.objects.all()[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.content
+
+    def item_link(self, item):
+        return reverse('blog:blog_detail', args=[item.pk])
+'''
+
+
+def blog_detail_md(request, blog_pk):
+        blog = get_object_or_404(Blog, pk=blog_pk)
+        blog.content_md = markdown.markdown(blog.content, 
+                                            extensions=[
+                                                'markdown.extensions.extra',
+                                                'markdown.extensions.codehilite',
+                                                'markdown.extensions.toc',])
+        context = {}
+        context['blog'] = blog
+        return render(request, 'blog/blog_detail_md.html', context)
+
