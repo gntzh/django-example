@@ -99,11 +99,12 @@ class BlogAllFeed(Feed):
 
 def blog_detail_md(request, blog_pk):
         blog = get_object_or_404(Blog, pk=blog_pk)
-        blog.content_md = markdown.markdown(blog.content, 
-                                            extensions=[
-                                                'markdown.extensions.extra',
-                                                'markdown.extensions.codehilite',
-                                                'markdown.extensions.toc',])
+        md = markdown.Markdown(extensions=[
+                                'markdown.extensions.extra',
+                                'markdown.extensions.codehilite',
+                                'markdown.extensions.toc',])
+        blog.content_md = md.convert(blog.content)
+        blog.toc_md = md.toc
         context = {}
         context['blog'] = blog
         return render(request, 'blog/blog_detail_md.html', context)
