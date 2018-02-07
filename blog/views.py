@@ -77,6 +77,7 @@ def blog_with_category(request, category_pk):
     context['page_range'] = page_range
     return render(request, 'blog/blog_with_category.html', context)
 
+
 '''
 class BlogAllFeed(Feed):
     title = "Blog Rsss"
@@ -98,14 +99,14 @@ class BlogAllFeed(Feed):
 
 
 def blog_detail_md(request, blog_pk):
-        blog = get_object_or_404(Blog, pk=blog_pk)
-        md = markdown.Markdown(extensions=[
-                                'markdown.extensions.extra',
-                                'markdown.extensions.codehilite',
-                                'markdown.extensions.toc',])
-        blog.content_md = md.convert(blog.content)
-        blog.toc_md = md.toc
-        context = {}
-        context['blog'] = blog
-        return render(request, 'blog/blog_detail_md.html', context)
-
+    blog = get_object_or_404(Blog, pk=blog_pk)
+    md = markdown.Markdown(extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ])
+    blog.content_md = md.convert(blog.content)
+    blog.toc_md = md.toc
+    context = {}
+    context['blog'] = blog
+    return render(request, 'blog/blog_detail_md.html', context)
