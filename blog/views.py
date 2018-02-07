@@ -99,3 +99,7 @@ def blog_detail_md(request, blog_pk):
     context = {}
     context['blog'] = blog
     return render(request, 'blog/blog_detail_md.html', context)
+
+
+def archives(request, year, month):
+    pass
