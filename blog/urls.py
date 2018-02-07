@@ -1,5 +1,4 @@
 # app blog URL Configuration
-
 from django.urls import path
 from . import views
 
@@ -13,4 +12,5 @@ urlpatterns = [
         views.blog_with_category,
         name='blog_with_category'),
     path('<int:blog_pk>/md', views.blog_detail_md, name='blog_detail_md'),
+    path('archives/<int:year>/<int:month>/', views.archives, name='archives'),
 ]

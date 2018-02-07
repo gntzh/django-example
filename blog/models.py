@@ -4,19 +4,17 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=32)
 
     def __str__(self):
         return self.name
 
 
-'''
 class Tag(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=16)
 
     def __str__(self):
         return self.name
-'''
 
 
 class Blog(models.Model):
@@ -31,6 +29,7 @@ class Blog(models.Model):
         on_delete=models.DO_NOTHING,
         verbose_name='分类',
     )
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name='标签')
     content = models.TextField('内容')
     created_time = models.DateTimeField('发布时间', auto_now_add=True)
     modified_time = models.DateTimeField('最近修改', auto_now=True)
@@ -42,4 +41,4 @@ class Blog(models.Model):
         ]
 
     def __str__(self):
-        return "<Blog: %s>" % self.title
+        return self.title
